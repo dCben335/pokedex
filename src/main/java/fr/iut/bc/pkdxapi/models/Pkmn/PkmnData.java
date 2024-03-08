@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import fr.iut.bc.pkdxapi.models.Pkmn.Types.PkmnTypes;
-
 
 @Document("Pkmn")
 @TypeAlias("PkmnData")

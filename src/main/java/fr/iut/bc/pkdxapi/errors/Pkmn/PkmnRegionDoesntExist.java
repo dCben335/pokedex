@@ -6,7 +6,7 @@ import fr.iut.bc.pkdxapi.errors.APIException;
 
 public class PkmnRegionDoesntExist extends APIException {
     
-    public PkmnRegionDoesntExist(String name) {
-        super(HttpStatus.NOT_FOUND , "Pkmn region " + name + " doesn't exist.");
+    public PkmnRegionDoesntExist(String message) {
+        super(HttpStatus.NOT_FOUND , message);
     }
 }

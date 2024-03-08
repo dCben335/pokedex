@@ -1,4 +1,4 @@
-package fr.iut.bc.pkdxapi.models.Pkmn.Types;
+package fr.iut.bc.pkdxapi.models.Pkmn;
 
 public enum PkmnTypes {
     NORMAL,

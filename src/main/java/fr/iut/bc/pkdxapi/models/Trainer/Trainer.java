@@ -2,6 +2,12 @@ package fr.iut.bc.pkdxapi.models.Trainer;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("Trainer")
+@TypeAlias("TrainerData")
 public class Trainer {
     private String username;
     private String imgUrl;

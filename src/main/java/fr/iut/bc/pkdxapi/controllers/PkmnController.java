@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.iut.bc.pkdxapi.models.Pkmn.Pkmn;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnData;
-import fr.iut.bc.pkdxapi.models.Pkmn.Types.PkmnTypes;
-import fr.iut.bc.pkdxapi.models.Pkmn.Types.PkmnTypesResponse;
+import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypes;
 import fr.iut.bc.pkdxapi.models.Pkmn.requests.PkmnRegionRequest;
+import fr.iut.bc.pkdxapi.models.Pkmn.requests.PkmnTypesResponse;
 import fr.iut.bc.pkdxapi.services.PkmnService;
 
 import java.util.Optional;
@@ -47,21 +47,24 @@ public class PkmnController {
 
     @PutMapping("")
     public PkmnData updatePkmn(
-        @RequestParam(required = true) Optional<ObjectId> id,
+        @RequestParam(required = true) ObjectId id,
         @RequestParam(required = false) Optional<String> name,
         @RequestParam(required = false) Optional<String> description,
         @RequestParam(required = false) Optional<String> imgUrl,
         @RequestParam(required = false) Optional<PkmnTypes> typeOne,
         @RequestParam(required = false) Optional<PkmnTypes> typeTwo
     ) {
-        return pkmnService.updateById(
-            id.get(), 
+
+        PkmnData pkmnData = pkmnService.updateById(
+            id, 
             name,
             description, 
             imgUrl, 
             typeOne, 
             typeTwo
         );   
+
+        return pkmnData;
     }
 
     @DeleteMapping("")

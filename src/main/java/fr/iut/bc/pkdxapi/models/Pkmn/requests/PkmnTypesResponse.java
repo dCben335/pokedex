@@ -1,6 +1,8 @@
-package fr.iut.bc.pkdxapi.models.Pkmn.Types;
+package fr.iut.bc.pkdxapi.models.Pkmn.requests;
 
 import java.util.List;
+
+import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypes;
 
 public class PkmnTypesResponse {
     private List<PkmnTypes> types;

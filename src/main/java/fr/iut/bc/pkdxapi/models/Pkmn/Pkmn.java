@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.annotation.TypeAlias;
 
-import fr.iut.bc.pkdxapi.models.Pkmn.Types.PkmnTypes;
-
 @TypeAlias("Pkmn")
 public class Pkmn {
 
@@ -70,7 +68,6 @@ public class Pkmn {
         }
 
         return this.types;
-        
     }
 
     public List<PkmnRegion> setRegions(List<PkmnRegion> regions) {

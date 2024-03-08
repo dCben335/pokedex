@@ -5,7 +5,7 @@ import fr.iut.bc.pkdxapi.errors.APIException;
 
 public class PkmnRegionAlreadyExistException extends APIException {
     
-    public PkmnRegionAlreadyExistException(String name) {
-        super(HttpStatus.CONFLICT ,"Pkmn region " + name + " already exist.");
+    public PkmnRegionAlreadyExistException(String message) {
+        super(HttpStatus.CONFLICT , message);
     }
 }
