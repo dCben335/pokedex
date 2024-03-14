@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/users/register").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/pkmn/**", "/pkmn").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/pkmn/**", "/pkmn").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/pkmn/**", "/pkmn").authenticated() 
+                .requestMatchers("/pkmn/**", "/pkmn").permitAll() 
                 .requestMatchers("/trainer/**", "/trainer").authenticated()
             )                    
             .httpBasic(Customizer.withDefaults()).csrf(csrf->csrf.disable());

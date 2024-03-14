@@ -86,8 +86,8 @@ public class PkmnController {
     public PkmnTypesResponse getPkmnTypes() {
         return pkmnService.getAllPkmnTypes();
     }
+
     
-  
     @PostMapping("/create")
     public void create(@RequestBody Pkmn pkmn) {
         pkmnService.create(pkmn);        

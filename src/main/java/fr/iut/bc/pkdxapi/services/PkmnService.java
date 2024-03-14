@@ -19,6 +19,7 @@ import fr.iut.bc.pkdxapi.errors.Pkmn.PkmnRegionDoesntExist;
 import fr.iut.bc.pkdxapi.models.Pkmn.Pkmn;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnData;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnRegion;
+import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypeDto;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypes;
 import fr.iut.bc.pkdxapi.models.Pkmn.requests.PkmnTypesResponse;
 import fr.iut.bc.pkdxapi.repositories.PkmnRepository;
@@ -125,9 +126,11 @@ public class PkmnService {
 
         
     public PkmnTypesResponse getAllPkmnTypes() {
-        List<PkmnTypes> result = new ArrayList<>(
-            EnumSet.allOf(PkmnTypes.class)
-        );
+        List<PkmnTypeDto> result = new ArrayList<>();
+
+        for (PkmnTypes type : EnumSet.allOf(PkmnTypes.class)) {
+            result.add(new PkmnTypeDto(type.name(), type.getColor()));
+        }
 
         return new PkmnTypesResponse(result);
     }
