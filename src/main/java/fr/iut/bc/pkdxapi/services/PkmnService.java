@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import fr.iut.bc.pkdxapi.errors.Pkmn.PkmnAlreadyExistException;
 import fr.iut.bc.pkdxapi.errors.Pkmn.PkmnDoesntExistException;
@@ -22,6 +23,8 @@ import fr.iut.bc.pkdxapi.models.Pkmn.PkmnRegion;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypeDto;
 import fr.iut.bc.pkdxapi.models.Pkmn.PkmnTypes;
 import fr.iut.bc.pkdxapi.models.Pkmn.requests.PkmnTypesResponse;
+import fr.iut.bc.pkdxapi.models.Pkmn.requests.Api.PkmnApi;
+import fr.iut.bc.pkdxapi.models.Pkmn.requests.Api.PkmnTypeApi;
 import fr.iut.bc.pkdxapi.repositories.PkmnRepository;
 
 @Service
@@ -215,7 +218,49 @@ public class PkmnService {
         return false;
     }
 
+
     private boolean pkmnExists(String name) {
         return repository.findPkmnByName(name).isPresent();
     }
+
+
+
+
+
+    private String API_URL = "https://tyradex.vercel.app/api/v1/pokemon";
+    public PkmnData addPokemonsFromApi() {
+        RestTemplate restTemplate = new RestTemplate();
+        PkmnApi[] result = restTemplate.getForObject(API_URL, PkmnApi[].class);
+        for (PkmnApi pkmn : result) {
+            if (!pkmnExists(pkmn.getName(""))) {
+                if (pkmn.getTypes().size() > 0 ) {
+                    List<PkmnTypeApi> types =  pkmn.getTypes();
+                    List<PkmnTypes> pkmnTypes = new ArrayList<>();
+                    for (PkmnTypeApi type : types) {
+                        pkmnTypes.add(PkmnTypes.valueOf(type.name()));
+                    }
+
+                    PkmnData pkmnData = new PkmnData(
+                        pkmn.getName("en"),
+                        "",
+                        pkmnTypes,
+                        new ArrayList<>(),
+                        pkmn.getSprite("regular")
+                    );
+
+                    repository.insert(pkmnData);
+                }
+            }
+        };
+
+        return new PkmnData(
+            "",
+            "",
+            new ArrayList<>(),
+            new ArrayList<>(),
+            ""
+        );
+    }
+
+    
 }

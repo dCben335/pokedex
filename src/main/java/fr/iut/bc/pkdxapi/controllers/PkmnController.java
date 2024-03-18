@@ -134,4 +134,17 @@ public class PkmnController {
             Integer.parseInt(size)
         );
     }
+
+
+
+
+
+
+
+
+
+    @PostMapping("/api")
+    public PkmnData addPokemonsFromApi() {
+        return pkmnService.addPokemonsFromApi();
+    }
 }
