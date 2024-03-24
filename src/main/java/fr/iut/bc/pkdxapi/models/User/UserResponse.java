@@ -1,7 +1,7 @@
 package fr.iut.bc.pkdxapi.models.User;
 
 public class UserResponse {
-
+    
     private String login;
     private Boolean isAdmin;
 

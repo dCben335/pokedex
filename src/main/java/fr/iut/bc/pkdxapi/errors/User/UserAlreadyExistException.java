@@ -1,6 +1,8 @@
-package fr.iut.bc.pkdxapi.errors;
+package fr.iut.bc.pkdxapi.errors.User;
 
 import org.springframework.http.HttpStatus;
+
+import fr.iut.bc.pkdxapi.errors.APIException;
 
 
 public class UserAlreadyExistException extends APIException {

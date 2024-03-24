@@ -1,17 +1,24 @@
 package fr.iut.bc.pkdxapi.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import fr.iut.bc.pkdxapi.errors.UserAlreadyExistException;
+
+import fr.iut.bc.pkdxapi.errors.User.UserAlreadyExistException;
+import fr.iut.bc.pkdxapi.errors.User.UserNotFoundException;
 import fr.iut.bc.pkdxapi.models.AuthRequest;
 import fr.iut.bc.pkdxapi.models.AuthResponse;
 import fr.iut.bc.pkdxapi.models.User.UserDTO;
 import fr.iut.bc.pkdxapi.models.User.UserData;
 import fr.iut.bc.pkdxapi.models.User.UserResponse;
+import fr.iut.bc.pkdxapi.models.User.UserStatusRequest;
 import fr.iut.bc.pkdxapi.repositories.UserRepository;
 import fr.iut.bc.pkdxapi.utils.JwtUtil;
 
@@ -35,6 +42,20 @@ public class UserDataService {
         this.repository = repository;
     }
 
+    public UserResponse changeUserStatus(UserStatusRequest userStatusRequest) {
+        Optional<UserData> userData = repository.findById(userStatusRequest.getId());
+
+        if (!userData.isPresent()) {
+            throw new UserNotFoundException("User not found.");
+        }
+
+        UserData user = userData.get();
+        user.setIsAdmin(userStatusRequest.getIsAdmin());
+        repository.save(user);
+        
+        return new UserResponse(user.getLogin(), user.getIsAdmin());
+    }
+
     public AuthResponse register(UserDTO userData) {
         if (userExists(userData.getLogin())) {
             throw new UserAlreadyExistException("User already exists.");
@@ -43,7 +64,7 @@ public class UserDataService {
         UserData user = new UserData(
             userData.getLogin(),
             passwordEncoder.encode(userData.getPassword()),
-            userData.getIsAdmin()
+            false
         );
     
         repository.save(user);
