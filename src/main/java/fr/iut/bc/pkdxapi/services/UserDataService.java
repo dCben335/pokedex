@@ -27,6 +27,9 @@ public class UserDataService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
     public UserDataService(UserRepository repository) {
         this.repository = repository;
@@ -59,7 +62,7 @@ public class UserDataService {
             throw new BadCredentialsException("Incorrect username or password");
         }
 
-        String token = getToken(user.getLogin(), user.getPassword());
+        String token = getToken(authRequest.getLogin(), authRequest.getPassword());
         UserResponse userResponse = new UserResponse(user.getLogin(), user.getIsAdmin());
 
         return new AuthResponse(token, userResponse);
@@ -77,7 +80,7 @@ public class UserDataService {
             throw new BadCredentialsException("Incorrect username or password", e);
         }
         
-        return JwtUtil.generateToken(login);
+        return jwtUtil.generateToken(login);
     }
 
 
