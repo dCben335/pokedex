@@ -1,27 +1,17 @@
 package fr.iut.bc.pkdxapi.models.User;
 
-import org.springframework.data.annotation.TypeAlias;
-
-@TypeAlias("UserDTO")
-public class UserDTO {
+public class UserResponse {
 
     private String login;
-    
-    private String password;
     private Boolean isAdmin;
 
-    public UserDTO(String login, String password, Boolean isAdmin) {
+    public UserResponse(String login, Boolean isAdmin) {
         this.login = login;
-        this.password = password;
         this.isAdmin = isAdmin;
     }
 
     public String getLogin() {
         return login;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public boolean getIsAdmin() {
@@ -30,10 +20,6 @@ public class UserDTO {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public void setIsAdmin(Boolean isAdmin) {

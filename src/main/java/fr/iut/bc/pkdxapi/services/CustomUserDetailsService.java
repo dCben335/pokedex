@@ -9,13 +9,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import fr.iut.bc.pkdxapi.models.User.UserData;
 import fr.iut.bc.pkdxapi.repositories.UserRepository;
 
+
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
     private List<GrantedAuthority> userAuthorities;
     private List<GrantedAuthority> adminAuthorities;
 

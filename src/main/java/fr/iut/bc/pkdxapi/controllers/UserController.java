@@ -3,9 +3,12 @@ package fr.iut.bc.pkdxapi.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.iut.bc.pkdxapi.models.AuthRequest;
+import fr.iut.bc.pkdxapi.models.AuthResponse;
 import fr.iut.bc.pkdxapi.models.User.UserDTO;
 import fr.iut.bc.pkdxapi.services.UserDataService;
 
@@ -26,19 +29,13 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {        
-        userDataService.register(userDTO);
-
-        return ResponseEntity
-            .status(HttpStatus.OK)
-            .body("User registered successfully.");
-
+    public AuthResponse register(@RequestBody UserDTO userDTO) {        
+        AuthResponse authRequest = userDataService.register(userDTO);
+        return authRequest;
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> isLogged() {
-        return ResponseEntity
-            .status(HttpStatus.OK)
-            .body("User logged in successfully.");
+    public AuthResponse login(@RequestBody AuthRequest userDTO) {
+        return userDataService.login(userDTO);
     }
 }

@@ -9,5 +9,5 @@ import fr.iut.bc.pkdxapi.models.User.UserData;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserData, String> {
-    
+    UserData findByLogin(String login);
 }
