@@ -12,6 +12,7 @@ import fr.iut.bc.pkdxapi.models.User.UserData;
 import fr.iut.bc.pkdxapi.models.User.UserResponse;
 import fr.iut.bc.pkdxapi.models.User.UserStatusRequest;
 import fr.iut.bc.pkdxapi.services.UserDataService;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,12 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> me() {
+    public UserResponse me(HttpServletRequest request) {
+        return userDataService.getUserLogedData(request); 
+    }
+    
+    @GetMapping("/logged")
+    public ResponseEntity<?> logged() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

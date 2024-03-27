@@ -65,7 +65,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/pkmn/**", "/pkmn").permitAll() 
                 .requestMatchers("/trainer/**", "/trainer").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/users/admin").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/users/login", "/users/register").permitAll()
+                .requestMatchers("/users/login", "/users/register", "/users/logged").permitAll()
                 .requestMatchers("/users/me").authenticated()
             ) 
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

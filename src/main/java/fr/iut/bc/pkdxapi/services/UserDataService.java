@@ -21,6 +21,7 @@ import fr.iut.bc.pkdxapi.models.User.UserResponse;
 import fr.iut.bc.pkdxapi.models.User.UserStatusRequest;
 import fr.iut.bc.pkdxapi.repositories.UserRepository;
 import fr.iut.bc.pkdxapi.utils.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserDataService {
@@ -88,6 +89,14 @@ public class UserDataService {
 
         return new AuthResponse(token, userResponse);
     }
+
+
+    public UserResponse getUserLogedData (HttpServletRequest request) {
+        String token = jwtUtil.parseJwt(request);
+        String login = jwtUtil.extractUsername(token);
+        UserData user = getUserByLogin(login);
+        return new UserResponse(user.getLogin(), user.getIsAdmin());
+    } 
 
 
 
