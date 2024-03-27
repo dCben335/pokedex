@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.iut.bc.pkdxapi.models.AuthRequest;
 import fr.iut.bc.pkdxapi.models.AuthResponse;
 import fr.iut.bc.pkdxapi.models.User.UserDTO;
-import fr.iut.bc.pkdxapi.models.User.UserData;
 import fr.iut.bc.pkdxapi.models.User.UserResponse;
 import fr.iut.bc.pkdxapi.models.User.UserStatusRequest;
 import fr.iut.bc.pkdxapi.services.UserDataService;
@@ -41,7 +40,7 @@ public class UserController {
         return userDataService.changeUserStatus(userStatusRequest);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest userDTO) {
         return userDataService.login(userDTO);
     }

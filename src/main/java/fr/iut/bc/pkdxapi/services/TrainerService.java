@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,12 +32,33 @@ public class TrainerService {
     }
     
 
-    public TrainerData getTrainer() {
-        String username = getUserName();
+    // public TrainerData getTrainer() {
+    //     String username = getUserName();
+    //     Optional<TrainerData> trainerData = repository.findByUsername(username);
+
+    //     if (!trainerData.isPresent()) {
+    //         throw new TrainerDoesntExistException("Trainer with username " + username + " doesn't exist");
+    //     }
+
+    //     return trainerData.get();
+    // }
+
+
+    public TrainerData getTrainerByUsername(String username) {
         Optional<TrainerData> trainerData = repository.findByUsername(username);
 
         if (!trainerData.isPresent()) {
             throw new TrainerDoesntExistException("Trainer with username " + username + " doesn't exist");
+        }
+
+        return trainerData.get();
+    } 
+
+    public TrainerData getTrainerById(ObjectId id) {
+        Optional<TrainerData> trainerData = repository.findById(id);
+
+        if (!trainerData.isPresent()) {
+            throw new TrainerDoesntExistException("Trainer with id " + id + " doesn't exist");
         }
 
         return trainerData.get();
@@ -130,7 +154,10 @@ public class TrainerService {
     }
 
 
-
+    public Page<TrainerData> searchTrainers(String partialName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);  
+        return repository.searchTrainers(partialName, pageable);
+    }
 
 
 

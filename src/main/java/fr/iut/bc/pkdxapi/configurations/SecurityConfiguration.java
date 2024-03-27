@@ -1,12 +1,9 @@
 package fr.iut.bc.pkdxapi.configurations;
 import fr.iut.bc.pkdxapi.filters.JwtRequestFilter;
 
-import fr.iut.bc.pkdxapi.repositories.UserRepository;
 import fr.iut.bc.pkdxapi.services.AuthEntryPointJwt;
 import fr.iut.bc.pkdxapi.services.CustomUserDetailsService;
-import fr.iut.bc.pkdxapi.services.UserDataService;
 
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -63,7 +60,10 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.PUT, "/pkmn/**", "/pkmn").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/pkmn/**", "/pkmn").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/pkmn/**", "/pkmn").permitAll() 
+
+                .requestMatchers(HttpMethod.GET,"/trainer/**", "/trainer").permitAll()
                 .requestMatchers("/trainer/**", "/trainer").authenticated()
+
                 .requestMatchers(HttpMethod.PUT, "/users/admin").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/users/login", "/users/register", "/users/logged").permitAll()
                 .requestMatchers("/users/me").authenticated()
